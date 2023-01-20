@@ -58,10 +58,6 @@ public class CommentController {
 
         return ok(toCommentDto(createdComment));
     }
-    @PostMapping("/{commentId}/addblogpost")
-    @ResponseBody
-    public BlogPost addCommentToBlogPost(@PathVariable Long commentId, @RequestParam Long blogPostId) {
-        return commentService.addCommentToBlogPost(commentId, blogPostId);
-    }
+
 
 }

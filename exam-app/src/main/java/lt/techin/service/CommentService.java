@@ -7,6 +7,7 @@ import lt.techin.model.BlogPost;
 import lt.techin.model.Comment;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,9 +17,12 @@ public class CommentService {
     private final BlogPostRepository blogPostRepository;
     private final CommentRepository commentRepository;
 
+    private final List<Comment> commentsInPost;
+
     public CommentService(BlogPostRepository blogPostRepository, CommentRepository commentRepository) {
         this.blogPostRepository = blogPostRepository;
         this.commentRepository = commentRepository;
+        this.commentsInPost = new ArrayList<>();
     }
 
     public List<Comment> getAll() {
@@ -34,18 +38,5 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    public BlogPost addCommentToBlogPost(Long blogPostId, Long commentId) {
-        var existingBlogPost = blogPostRepository.findById(blogPostId)
-                .orElseThrow(() -> new BloggingValidationException("BlogPost does not exist",
-                        "id", "BlogPost not found", blogPostId.toString()));
 
-        var existingComment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new BloggingValidationException("Comment does not exist",
-                        "id", "Comment not found", commentId.toString()));
-
-        existingComment.setBlogPost(existingBlogPost);
-
-        return blogPostRepository.save(existingBlogPost);
-
-    }
 }

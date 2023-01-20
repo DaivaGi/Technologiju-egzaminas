@@ -13,12 +13,7 @@ public class Comment {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-
         private String author;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Blog_post_id")
-        private BlogPost blogPost;
 
         private String aComment;
 
@@ -65,13 +60,6 @@ public class Comment {
         this.createdDate = createdDate;
     }
 
-    public BlogPost getBlogPost() {
-        return blogPost;
-    }
-
-    public void setBlogPost(BlogPost blogPost) {
-        this.blogPost = blogPost;
-    }
 
     @Override
     public boolean equals(Object o) {

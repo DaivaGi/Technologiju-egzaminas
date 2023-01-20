@@ -30,12 +30,26 @@ public class BlogPost {
     @CreatedDate
     private LocalDateTime createdDate;
 
+    @OneToMany
+    @JoinColumn(name = "aComment_id")
+    private List<Comment> comment =new ArrayList<>();
+
+
+
     @PrePersist
     public void prePersist() {
         createdDate = LocalDateTime.now();
     }
 
     public BlogPost() {
+    }
+
+    public List<Comment> getComment() {
+        return comment;
+    }
+
+    public void setComment(List<Comment> comment) {
+        this.comment = comment;
     }
 
     public Long getId() {
