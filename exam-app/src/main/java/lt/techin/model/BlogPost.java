@@ -73,16 +73,24 @@ public class BlogPost {
         this.createdDate = createdDate;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BlogPost blogPost = (BlogPost) o;
-        return Objects.equals(id, blogPost.id) && Objects.equals(title, blogPost.title) && Objects.equals(text, blogPost.text) && Objects.equals(createdDate, blogPost.createdDate);
+        return Objects.equals(id, blogPost.id) && Objects.equals(title, blogPost.title) && Objects.equals(text, blogPost.text) && Objects.equals(comments, blogPost.comments) && Objects.equals(createdDate, blogPost.createdDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, text, createdDate);
+        return Objects.hash(id, title, text, comments, createdDate);
     }
 }

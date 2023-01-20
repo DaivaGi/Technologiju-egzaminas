@@ -1,27 +1,30 @@
 package lt.techin.service;
 
+import lt.techin.dao.BlogPostRepository;
+import lt.techin.dao.CommentRepository;
+import lt.techin.exception.BloggingValidationException;
 import lt.techin.model.BlogPost;
-import lt.techin.zoo.dao.AnimalRepository;
-import lt.techin.zoo.dao.RoomRepository;
-import lt.techin.zoo.exception.ZooValidationException;
-import lt.techin.zoo.model.Animal;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
+import lt.techin.model.Comment;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static lt.techin.zoo.model.AnimalType.*;
 
 @Service
 public class BlogPostService {
 
-    private final BlogPostService blogPostRepository;
+    private final BlogPostRepository blogPostRepository;
+    private final CommentRepository commentRepository;
 
-    public BlogPostService(BlogPostService blogPostRepository) {
+
+    private List<Comment> comments;
+
+    public BlogPostService(BlogPostRepository blogPostRepository, CommentRepository commentRepository) {
         this.blogPostRepository = blogPostRepository;
+        this.commentRepository = commentRepository;
+        comments = new ArrayList<>();
     }
 
     public List<BlogPost> getAll() {
@@ -36,7 +39,21 @@ public class BlogPostService {
         return blogPostRepository.save(blogPost);
     }
 
-//TO FIX
-//    public List<Comment> getAllComments { return blogPostRepository.getAll();}
+    public BlogPost addCommentToBlogPost(Long blogPostId, Long commentId) {
+        var existingBlogPost = blogPostRepository.findById(blogPostId)
+                .orElseThrow(() -> new BloggingValidationException("BlogPost does not exist",
+                        "id", "BlogPost not found", blogPostId.toString()));
 
+        var existingComment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new BloggingValidationException("Comment does not exist",
+                        "id", "Comment not found", commentId.toString()));
+
+        comments.add(existingComment);
+        existingBlogPost.setComments(comments);
+
+        return blogPostRepository.save(existingBlogPost);
+
+    }
 }
+
+
