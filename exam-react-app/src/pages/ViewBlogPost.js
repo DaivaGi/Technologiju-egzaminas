@@ -14,9 +14,8 @@ export function ViewBlogPost() {
             .then(setBlogPost)
     }, [params.id]);
 
-    return (<div>  
+    return (<div> 
 
-        
         <div>{blogPost.createdDate}</div>
 
         
@@ -25,7 +24,7 @@ export function ViewBlogPost() {
         
         <div>{blogPost.text}</div>
 
-        <CommentsPart id={blogPost.id}/>
+        {/* <CommentsPart /> */}
 
         
     </div>);

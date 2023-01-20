@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "bootstrap";
+import { CreateComment } from "./newComment";
 
 const JSON_HEADERS = {
   "Content-Type": "application/json",
@@ -24,18 +25,19 @@ export function CommentsPart(props) {
       
       <table>
         <tbody>
-          {comments.filter(comment => comment.blogPost === props.id)
-          .map(filteredComment => (
-            <tr key={filteredComment.id}>
-              <td>{filteredComment.createdDate}</td>
-              <td>{filteredComment.author}</td>
-              <td>{filteredComment.comment}</td>
+          {comments.map(comment => (
+            <tr key={comment.id}>
+              <td>{comment.createdDate}</td>
+              <td>{comment.author}</td>
+              <td>{comment.comment}</td>
               <td>                
               </td>
+              
             </tr>
           ))}
         </tbody>
       </table>
+      <CreateComment/>
     </div>
   );
 }
