@@ -17,9 +17,7 @@ public class BlogPostService {
 
     private final BlogPostRepository blogPostRepository;
     private final CommentRepository commentRepository;
-
-
-    private List<Comment> comments;
+    private final List<Comment> comments;
 
     public BlogPostService(BlogPostRepository blogPostRepository, CommentRepository commentRepository) {
         this.blogPostRepository = blogPostRepository;
