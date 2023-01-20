@@ -55,3 +55,6 @@ logging:
         descriptor:
           sql:
             BasicBinder: DEBUG
+
+server:
+  port: 8081
