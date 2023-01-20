@@ -63,10 +63,6 @@ public class BlogPostController {
     }
 
 
-    @PostMapping("/{animalId}/addroom")
-    @ResponseBody
-    public BlogPost addCommentToBlogPost(@PathVariable Long blogPostId, @RequestParam Long roomId) {
-        return blogPostService.addCommentToBlogPost(blogPostId, roomId);
-    }
+
 
 }

@@ -16,7 +16,11 @@ public class Comment {
 
         private String author;
 
-        private String comment;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Blog_post_id")
+        private BlogPost blogPost;
+
+        private String aComment;
 
         @CreatedDate
         private LocalDateTime createdDate;
@@ -46,11 +50,11 @@ public class Comment {
     }
 
     public String getComment() {
-        return comment;
+        return aComment;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setComment(String aComment) {
+        this.aComment = aComment;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -61,16 +65,24 @@ public class Comment {
         this.createdDate = createdDate;
     }
 
+    public BlogPost getBlogPost() {
+        return blogPost;
+    }
+
+    public void setBlogPost(BlogPost blogPost) {
+        this.blogPost = blogPost;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Comment that = (Comment) o;
-        return Objects.equals(id, that.id) && Objects.equals(author, that.author) && Objects.equals(comment, that.comment) && Objects.equals(createdDate, that.createdDate);
+        return Objects.equals(id, that.id) && Objects.equals(author, that.author) && Objects.equals(aComment, that.aComment) && Objects.equals(createdDate, that.createdDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, author, comment, createdDate);
+        return Objects.hash(id, author, aComment, createdDate);
     }
 }

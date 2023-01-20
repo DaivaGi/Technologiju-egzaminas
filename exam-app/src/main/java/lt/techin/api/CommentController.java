@@ -3,6 +3,7 @@ package lt.techin.api;
 import lt.techin.api.dto.CommentDto;
 import lt.techin.api.dto.CommentEntityDto;
 import lt.techin.api.dto.mapper.CommentMapper;
+import lt.techin.model.BlogPost;
 import lt.techin.model.Comment;
 import lt.techin.service.CommentService;
 import org.slf4j.Logger;
@@ -57,6 +58,10 @@ public class CommentController {
 
         return ok(toCommentDto(createdComment));
     }
-
+    @PostMapping("/{commentId}/addblogpost")
+    @ResponseBody
+    public BlogPost addCommentToBlogPost(@PathVariable Long blogPostId, @RequestParam Long commentId) {
+        return commentService.addCommentToBlogPost(blogPostId, commentId);
+    }
 
 }

@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,10 +26,6 @@ public class BlogPost {
     private String title;
 
     private String text;
-
-    @OneToMany(fetch = FetchType.EAGER)
-        @JoinColumn(name = "comment_id")
-        private List<Comment> comments;
 
     @CreatedDate
     private LocalDateTime createdDate;
@@ -73,24 +70,18 @@ public class BlogPost {
         this.createdDate = createdDate;
     }
 
-    public List<Comment> getComments() {
-        return comments;
-    }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BlogPost blogPost = (BlogPost) o;
-        return Objects.equals(id, blogPost.id) && Objects.equals(title, blogPost.title) && Objects.equals(text, blogPost.text) && Objects.equals(comments, blogPost.comments) && Objects.equals(createdDate, blogPost.createdDate);
+        return Objects.equals(id, blogPost.id) && Objects.equals(title, blogPost.title) && Objects.equals(text, blogPost.text) && Objects.equals(createdDate, blogPost.createdDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, text, comments, createdDate);
+        return Objects.hash(id, title, text, createdDate);
     }
 }

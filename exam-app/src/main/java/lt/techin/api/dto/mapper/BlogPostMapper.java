@@ -12,7 +12,7 @@ public class BlogPostMapper {
         blogPostDto.setTitle(blogPost.getTitle());
         blogPostDto.setText(blogPost.getText());
         blogPostDto.setCreatedDate(blogPost.getCreatedDate());
-        blogPostDto.setComments(blogPost.getComments());
+
 
         return blogPostDto;        
     }
@@ -23,7 +23,7 @@ public class BlogPostMapper {
         blogPostDto.setId(blogPost.getId());
         blogPostDto.setText(blogPost.getText());
         blogPostDto.setCreatedDate(blogPost.getCreatedDate());
-        blogPostDto.setComments(blogPost.getComments());
+
 
         return blogPostDto;
     }
@@ -34,7 +34,7 @@ public class BlogPostMapper {
         blogPost.setTitle(blogPostDto.getTitle());
         blogPost.setText(blogPostDto.getText());
         blogPost.setCreatedDate(blogPostDto.getCreatedDate());
-        blogPost.setComments(blogPostDto.getComments());
+
 
         return blogPost;
     }
@@ -45,7 +45,7 @@ public class BlogPostMapper {
         blogPost.setId(blogPostDto.getId());
         blogPost.setText(blogPostDto.getText());
         blogPost.setCreatedDate(blogPostDto.getCreatedDate());
-        blogPost.setComments(blogPostDto.getComments());
+
 
         return blogPost;
     }
