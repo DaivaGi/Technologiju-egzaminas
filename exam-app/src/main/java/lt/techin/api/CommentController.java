@@ -32,17 +32,17 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(value = "/all/{blogPostId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public List<CommentEntityDto> getComments() {
-        return commentService.getAll().stream()
+    public List<CommentEntityDto> getComments(@PathVariable Long blogPostId) {
+        return commentService.getAll(blogPostId).stream()
                 .map(CommentMapper::toCommentEntityDto)
                 .collect(toList());
     }
 
     @GetMapping(value = "/{commentId}", produces = {MediaType.APPLICATION_JSON_VALUE})
 
-    public ResponseEntity<Comment> getAnimal(@PathVariable Long commentId) {
+    public ResponseEntity<Comment> getCommentById(@PathVariable Long commentId) {
         var commentOptional = commentService.getById(commentId);
 
         var responseEntity = commentOptional
@@ -52,9 +52,9 @@ public class CommentController {
         return responseEntity;
     }
 
-    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<CommentDto> createComment(@RequestBody CommentDto commentDto) {
-        var createdComment = commentService.create(toComment(commentDto));
+    @PostMapping(value = "/{blogPostId}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<CommentDto> createComment(@RequestBody CommentDto commentDto, @PathVariable Long blogPostId) {
+        var createdComment = commentService.create(toComment(commentDto), blogPostId);
 
         return ok(toCommentDto(createdComment));
     }

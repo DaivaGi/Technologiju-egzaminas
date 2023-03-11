@@ -25,8 +25,8 @@ public class CommentService {
         this.commentsInPost = new ArrayList<>();
     }
 
-    public List<Comment> getAll() {
-        return commentRepository.findAll();
+    public List<Comment> getAll(Long blogPostId) {
+        return commentRepository.getAllByBlogPost_IdOrderByCreatedDateDesc(blogPostId);
     }
 
     public Optional<Comment> getById(Long id) {
@@ -34,7 +34,12 @@ public class CommentService {
     }
 
 
-    public Comment create(Comment comment) {
+    public Comment create(Comment comment, Long blogPostId) {
+        var existingBlogPost = blogPostRepository.findById(blogPostId)
+                .orElseThrow(() -> new BloggingValidationException("BlogPost does not exist",
+                        "id", "BlogPost not found", blogPostId.toString()));
+        comment.setBlogPost(existingBlogPost);
+
         return commentRepository.save(comment);
     }
 

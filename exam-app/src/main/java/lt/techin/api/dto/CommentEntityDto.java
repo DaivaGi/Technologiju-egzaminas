@@ -10,8 +10,8 @@ public class CommentEntityDto extends CommentDto {
     public CommentEntityDto() {
     }
 
-    public CommentEntityDto(String author, String comment, LocalDateTime createdDate, Long id) {
-        super(author, comment, createdDate);
+    public CommentEntityDto(String author, String text, LocalDateTime createdDate, Long id) {
+        super(author, text, createdDate);
         this.id = id;
     }
 

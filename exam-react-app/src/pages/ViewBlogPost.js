@@ -24,7 +24,7 @@ export function ViewBlogPost() {
         
         <div>{blogPost.text}</div>
 
-        {/* <CommentsPart /> */}
+        {<CommentsPart id={params.id} />}
 
         
     </div>);

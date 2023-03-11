@@ -10,7 +10,7 @@ public class CommentMapper {
         var commentDto = new CommentDto();
 
         commentDto.setAuthor(comment.getAuthor());
-        commentDto.setComment(comment.getComment());
+        commentDto.setText(comment.getText());
         commentDto.setCreatedDate(comment.getCreatedDate());
 
 
@@ -22,7 +22,7 @@ public class CommentMapper {
 
         commentDto.setId(comment.getId());
         commentDto.setAuthor(comment.getAuthor());
-        commentDto.setComment(comment.getComment());
+        commentDto.setText(comment.getText());
         commentDto.setCreatedDate(comment.getCreatedDate());
 
         return commentDto;
@@ -32,7 +32,7 @@ public class CommentMapper {
         var comment = new Comment();
 
         comment.setAuthor(commentDto.getAuthor());
-        comment.setComment(commentDto.getComment());
+        comment.setText(commentDto.getText());
         comment.setCreatedDate(commentDto.getCreatedDate());
 
 
@@ -44,7 +44,7 @@ public class CommentMapper {
 
         comment.setId(commentDto.getId());
         comment.setAuthor(commentDto.getAuthor());
-        comment.setComment(commentDto.getComment());
+        comment.setText(commentDto.getText());
         comment.setCreatedDate(commentDto.getCreatedDate());
 
         return comment;

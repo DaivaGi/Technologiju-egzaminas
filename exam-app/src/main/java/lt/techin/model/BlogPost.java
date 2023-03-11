@@ -1,6 +1,7 @@
 package lt.techin.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -30,7 +31,7 @@ public class BlogPost {
     @CreatedDate
     private LocalDateTime createdDate;
 
-    @OneToMany(mappedBy="comment")
+    @OneToMany(mappedBy="blogPost")
     private List<Comment> comments = new ArrayList<>();
 
 

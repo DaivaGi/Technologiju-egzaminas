@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "bootstrap";
+import { Button } from 'react-bootstrap';
 
 const JSON_HEADERS = {
   "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export function BlogPostListPage() {
               <td>{blogPost.text}</td>
               <td>
                 <Link to={"blogposts/view/" + blogPost.id}>
-                  <button variant="outline-success">Daugiau...</button>
+                  <Button variant="outline-secondary">Daugiau...</Button>
                 </Link>
               </td>
             </tr>

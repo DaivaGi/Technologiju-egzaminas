@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useHref } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 export function CreateNewBlogPost(props) {
     const [title, setTitle] = useState("");
@@ -60,7 +61,7 @@ export function CreateNewBlogPost(props) {
                 />
             </div>
             <div>
-                <button onClick={createBlogPost}>Create</button>
+                <Button onClick={createBlogPost}>Create</Button>
             </div>
         </fieldset>
     )

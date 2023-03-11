@@ -1,5 +1,6 @@
 package lt.techin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ public class Comment {
 
     private String author;
 
-    private String comment;
+    private String text;
 
     @CreatedDate
     private LocalDateTime createdDate;
@@ -44,12 +45,12 @@ public class Comment {
         this.author = author;
     }
 
-    public String getComment() {
-        return comment;
+    public String getText() {
+        return text;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -59,21 +60,30 @@ public class Comment {
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
+
+    public BlogPost getBlogPost() {
+        return blogPost;
+    }
+
+    public void setBlogPost(BlogPost blogPost) {
+        this.blogPost = blogPost;
+    }
+
     @ManyToOne
-    @JoinColumn(name="blogPost_id")
+    @JoinColumn(name = "blog_post_id")
+    @JsonIgnore
     private BlogPost blogPost;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Comment comment1 = (Comment) o;
-        return Objects.equals(id, comment1.id) && Objects.equals(author, comment1.author) && Objects.equals(comment, comment1.comment) && Objects.equals(createdDate, comment1.createdDate);
+        Comment comment = (Comment) o;
+        return Objects.equals(id, comment.id) && Objects.equals(author, comment.author) && Objects.equals(text, comment.text) && Objects.equals(createdDate, comment.createdDate) && Objects.equals(blogPost, comment.blogPost);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, author, comment, createdDate);
+        return Objects.hash(id, author, text, createdDate, blogPost);
     }
 }
-
