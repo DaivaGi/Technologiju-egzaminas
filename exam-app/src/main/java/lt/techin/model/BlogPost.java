@@ -30,9 +30,8 @@ public class BlogPost {
     @CreatedDate
     private LocalDateTime createdDate;
 
-    @OneToMany
-    @JoinColumn(name = "aComment_id")
-    private List<Comment> comment =new ArrayList<>();
+    @OneToMany(mappedBy="comment")
+    private List<Comment> comments = new ArrayList<>();
 
 
 
@@ -44,12 +43,12 @@ public class BlogPost {
     public BlogPost() {
     }
 
-    public List<Comment> getComment() {
-        return comment;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setComment(List<Comment> comment) {
-        this.comment = comment;
+    public void setComments(List<Comment> comment) {
+        this.comments = comments;
     }
 
     public Long getId() {
@@ -84,18 +83,16 @@ public class BlogPost {
         this.createdDate = createdDate;
     }
 
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BlogPost blogPost = (BlogPost) o;
-        return Objects.equals(id, blogPost.id) && Objects.equals(title, blogPost.title) && Objects.equals(text, blogPost.text) && Objects.equals(createdDate, blogPost.createdDate);
+        return Objects.equals(id, blogPost.id) && Objects.equals(title, blogPost.title) && Objects.equals(text, blogPost.text) && Objects.equals(createdDate, blogPost.createdDate) && Objects.equals(comments, blogPost.comments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, text, createdDate);
+        return Objects.hash(id, title, text, createdDate, comments);
     }
 }

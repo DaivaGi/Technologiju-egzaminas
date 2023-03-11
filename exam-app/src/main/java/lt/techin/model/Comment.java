@@ -9,21 +9,21 @@ import java.util.Objects;
 @Entity
 public class Comment {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        private String author;
+    private String author;
 
-        private String aComment;
+    private String comment;
 
-        @CreatedDate
-        private LocalDateTime createdDate;
+    @CreatedDate
+    private LocalDateTime createdDate;
 
-        @PrePersist
-        public void prePersist() {
-            createdDate = LocalDateTime.now();
-        }
+    @PrePersist
+    public void prePersist() {
+        createdDate = LocalDateTime.now();
+    }
 
     public Comment() {
     }
@@ -45,11 +45,11 @@ public class Comment {
     }
 
     public String getComment() {
-        return aComment;
+        return comment;
     }
 
-    public void setComment(String aComment) {
-        this.aComment = aComment;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -59,18 +59,21 @@ public class Comment {
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
-
+    @ManyToOne
+    @JoinColumn(name="blogPost_id")
+    private BlogPost blogPost;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Comment that = (Comment) o;
-        return Objects.equals(id, that.id) && Objects.equals(author, that.author) && Objects.equals(aComment, that.aComment) && Objects.equals(createdDate, that.createdDate);
+        Comment comment1 = (Comment) o;
+        return Objects.equals(id, comment1.id) && Objects.equals(author, comment1.author) && Objects.equals(comment, comment1.comment) && Objects.equals(createdDate, comment1.createdDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, author, aComment, createdDate);
+        return Objects.hash(id, author, comment, createdDate);
     }
 }
+

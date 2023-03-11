@@ -37,20 +37,27 @@ public class BlogPostService {
         return blogPostRepository.save(blogPost);
     }
 
-    public BlogPost addCommentToBlogPost(Long blogPostId, Long commentId) {
+    public List<Comment> getAllCommentsByBlogPostId(Long blogPostId){
         var existingBlogPost = blogPostRepository.findById(blogPostId)
                 .orElseThrow(() -> new BloggingValidationException("BlogPost does not exist",
                         "id", "BlogPost not found", blogPostId.toString()));
-
-        var existingComment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new BloggingValidationException("Comment does not exist",
-                        "id", "Comment not found", commentId.toString()));
-        comments.add(existingComment);
-        existingBlogPost.setComment(comments);
-
-        return blogPostRepository.save(existingBlogPost);
-
+        return existingBlogPost.getComments();
     }
+
+//    public BlogPost addCommentToBlogPost(Long blogPostId, Long commentId) {
+//        var existingBlogPost = blogPostRepository.findById(blogPostId)
+//                .orElseThrow(() -> new BloggingValidationException("BlogPost does not exist",
+//                        "id", "BlogPost not found", blogPostId.toString()));
+//
+//        var existingComment = commentRepository.findById(commentId)
+//                .orElseThrow(() -> new BloggingValidationException("Comment does not exist",
+//                        "id", "Comment not found", commentId.toString()));
+//        comments.add(existingComment);
+//        existingBlogPost.setComments(comments);
+//
+//        return blogPostRepository.save(existingBlogPost);
+//
+//    }
 }
 
 

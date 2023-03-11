@@ -8,7 +8,7 @@ public class CommentDto {
 
     private String author;
 
-    private String aComment;
+    private String comment;
 
     private LocalDateTime createdDate;
 
@@ -16,9 +16,9 @@ public class CommentDto {
         
     }
 
-    public CommentDto(String author, String aComment, LocalDateTime createdDate) {
+    public CommentDto(String author, String comment, LocalDateTime createdDate) {
         this.author = author;
-        this.aComment = aComment;
+        this.comment = comment;
         this.createdDate = createdDate;
     }
 
@@ -31,11 +31,11 @@ public class CommentDto {
     }
 
     public String getComment() {
-        return aComment;
+        return comment;
     }
 
-    public void setComment(String aComment) {
-        this.aComment = aComment;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public LocalDateTime getCreatedDate() {
@@ -51,19 +51,19 @@ public class CommentDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CommentDto that = (CommentDto) o;
-        return Objects.equals(author, that.author) && Objects.equals(aComment, that.aComment) && Objects.equals(createdDate, that.createdDate);
+        return Objects.equals(author, that.author) && Objects.equals(comment, that.comment) && Objects.equals(createdDate, that.createdDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(author, aComment, createdDate);
+        return Objects.hash(author, comment, createdDate);
     }
 
     @Override
     public String toString() {
         return "CommentDto{" +
                 "author='" + author + '\'' +
-                ", comment='" + aComment + '\'' +
+                ", comment='" + comment + '\'' +
                 ", createdDate=" + createdDate +
                 '}';
     }
