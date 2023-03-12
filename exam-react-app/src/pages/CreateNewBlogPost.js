@@ -43,7 +43,10 @@ export function CreateNewBlogPost() {
 
     const applyResult = (result) => {        
         if (result.ok) {
-            clear();
+            clear()
+            let info = result.json() 
+      .then((jsonResponse) => window.location = listUrl);
+    
         } else {
             window.alert("Nepavyko sukurt: " + result.status);
         }
@@ -60,8 +63,7 @@ export function CreateNewBlogPost() {
                     title,
                     text                    
                 })
-        }).then(applyResult)
-        .then(() => window.location = listUrl);
+        }).then(applyResult);
     };    
 
     return (<div className="d-grid justify-content-md-center">        

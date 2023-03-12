@@ -4,6 +4,7 @@ package lt.techin.api;
 import lt.techin.api.dto.BlogPostDto;
 import lt.techin.api.dto.BlogPostEntityDto;
 import lt.techin.api.dto.mapper.BlogPostMapper;
+import lt.techin.exception.BloggingValidationException;
 import lt.techin.model.BlogPost;
 import lt.techin.service.BlogPostService;
 import org.slf4j.Logger;
@@ -42,7 +43,6 @@ public class BlogPostController {
 
 
     @GetMapping(value = "/{blogPostId}", produces = {MediaType.APPLICATION_JSON_VALUE})
-
     public ResponseEntity<BlogPost> getBlogPost(@PathVariable Long blogPostId) {
         var blogPostOptional = blogPostService.getById(blogPostId);
 
@@ -53,21 +53,14 @@ public class BlogPostController {
         return responseEntity;
     }
 
-
-
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<BlogPostDto> createBlogPost(@RequestBody BlogPostDto blogPostDto) {
-        var createdBlogPost = blogPostService.create(toBlogPost(blogPostDto));
 
-        return ok(toBlogPostDto(createdBlogPost));
+        if (blogPostService.blogPostTitleIsUnique(toBlogPost(blogPostDto))) {
+            var createdBlogPost = blogPostService.create(toBlogPost(blogPostDto));
+            return ok(toBlogPostDto(createdBlogPost));
+        } else {
+            throw new BloggingValidationException("Blog Post already exists", "Blog Post title", "Already exists", blogPostDto.getTitle());
+        }
     }
-
-//    @PostMapping("/{blogpostId}/addcomment")
-//    @ResponseBody
-//    public BlogPost addCommentToBlogPost(@PathVariable Long blogpostId, @RequestParam Long commentId) {
-//        return blogPostService.addCommentToBlogPost(blogpostId, commentId );
-//    }
-
-
-
 }

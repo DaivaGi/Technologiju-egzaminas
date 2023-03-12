@@ -17,12 +17,9 @@ public class CommentService {
     private final BlogPostRepository blogPostRepository;
     private final CommentRepository commentRepository;
 
-    private final List<Comment> commentsInPost;
-
     public CommentService(BlogPostRepository blogPostRepository, CommentRepository commentRepository) {
         this.blogPostRepository = blogPostRepository;
         this.commentRepository = commentRepository;
-        this.commentsInPost = new ArrayList<>();
     }
 
     public List<Comment> getAll(Long blogPostId) {
@@ -42,6 +39,4 @@ public class CommentService {
 
         return commentRepository.save(comment);
     }
-
-
 }

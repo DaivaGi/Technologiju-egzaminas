@@ -21,12 +21,16 @@ public class Comment {
     @CreatedDate
     private LocalDateTime createdDate;
 
+    @ManyToOne
+    @JoinColumn(name = "blog_post_id")
+    @JsonIgnore
+    private BlogPost blogPost;
+
+    public Comment() {
+    }
     @PrePersist
     public void prePersist() {
         createdDate = LocalDateTime.now();
-    }
-
-    public Comment() {
     }
 
     public Long getId() {
@@ -68,11 +72,6 @@ public class Comment {
     public void setBlogPost(BlogPost blogPost) {
         this.blogPost = blogPost;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "blog_post_id")
-    @JsonIgnore
-    private BlogPost blogPost;
 
     @Override
     public boolean equals(Object o) {

@@ -6,9 +6,7 @@ public class ErrorFieldDto {
 
     private String name;
     private String error;
-
     private String rejectedValue;
-
     public ErrorFieldDto() {
     }
 

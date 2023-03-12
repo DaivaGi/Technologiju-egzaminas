@@ -27,41 +27,19 @@ import static java.util.stream.Collectors.toList;
 @ControllerAdvice
 public class ApiExceptionHandler {
 
-//      pavyzdys response, Spring sugeneruoto validacijos pranesimo
-//        {
-//            "timestamp": "2023-01-10T17:04:12.995+00:00",
-//                "status": 500,
-//                "error": "Internal Server Error",
-//                "path": "/api/v1/animals/marked"
-//        }
-
     private static final Logger logger = LoggerFactory.getLogger(ApiExceptionHandler.class);
 
     @ExceptionHandler(SQLException.class)
     public String handleSQLException(HttpServletRequest request, Exception ex) {
-        logger.info("SQLException Occured:: URL=" + request.getRequestURL());
+        logger.info("SQLException Occurred:: URL=" + request.getRequestURL());
         return "database_error";
     }
 
-//    @ExceptionHandler(IOException.class)
-//    public void zooNotFoundException() {
-//        logger.error("IOException handler executed");
-//        //returning 404 error code
-//    }
-
-    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "IOException occured")
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "IOException occurred")
     @ExceptionHandler(IOException.class)
     public void handleIOException() {
         logger.error("IOException handler executed");
-        //returning 404 error code
     }
-
-//@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "SQL query error")
-//    public void handleSQLGrammarException(SQLGrammarException exception) {
-//        logger.error("All Exceptions handler executed: {}. SQL: {}. Get SQL: {}",
-//                exception.getMessage(), exception.getSQLException(), exception.getSQL());
-//        //returning 404 error code
-//    }
 
     @ExceptionHandler(DataAccessException.class)
     public ResponseEntity<ErrorDto> handleDataAccessException(HttpServletRequest request, DataAccessException dataAccessException) {
@@ -83,18 +61,18 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(BloggingValidationException.class)
-    public ResponseEntity<ErrorDto> handleZooValidationException(HttpServletRequest request, BloggingValidationException zooValidationException) {
-        logger.error("zooValidationException: {}, for field: {}", zooValidationException.getMessage(), zooValidationException.getField());
+    public ResponseEntity<ErrorDto> handleBloggingValidationException(HttpServletRequest request, BloggingValidationException bloggingValidationException) {
+        logger.error("bloggingValidationException: {}, for field: {}", bloggingValidationException.getMessage(), bloggingValidationException.getField());
 
         var errorStatus = HttpStatus.BAD_REQUEST;
 
         var errorFields = List.of(
-                new ErrorFieldDto(zooValidationException.getField(), zooValidationException.getError(), zooValidationException.getRejectedValue())
+                new ErrorFieldDto(bloggingValidationException.getField(), bloggingValidationException.getError(), bloggingValidationException.getRejectedValue())
         );
 
         var errorDto = new ErrorDto(request.getRequestURL().toString(),
                 errorFields,
-                zooValidationException.getMessage(),
+                bloggingValidationException.getMessage(),
                 errorStatus.value(),
                 errorStatus.getReasonPhrase(),
                 request.getRequestURL().toString(),
@@ -104,8 +82,8 @@ public class ApiExceptionHandler {
 
 
     @ExceptionHandler(BloggingServiceDisabledException.class)
-    public ResponseEntity<Void> handleZooServiceDisabledException(HttpServletRequest request, BloggingServiceDisabledException serviceDisabledException) {
-        logger.error("ZooServiceDisabledException: {}", serviceDisabledException.getMessage());
+    public ResponseEntity<Void> handleBloggingServiceDisabledException(HttpServletRequest request, BloggingServiceDisabledException serviceDisabledException) {
+        logger.error("BloggingServiceDisabledException: {}", serviceDisabledException.getMessage());
 
         var errorStatus = HttpStatus.SERVICE_UNAVAILABLE;
 
