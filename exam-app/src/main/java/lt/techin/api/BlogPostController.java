@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @Controller
 @RequestMapping("/api/v1/blogposts")
+@Validated
 public class BlogPostController {
 
     public static Logger logger = LoggerFactory.getLogger(BlogPostController.class);
@@ -58,7 +60,7 @@ public class BlogPostController {
 
         if (blogPostService.blogPostTitleIsUnique(toBlogPost(blogPostDto))) {
             var createdBlogPost = blogPostService.create(toBlogPost(blogPostDto));
-            return ok(toBlogPostDto(createdBlogPost));
+            return ok(blogPostDto);
         } else {
             throw new BloggingValidationException("Blog Post already exists", "Blog Post title", "Already exists", blogPostDto.getTitle());
         }
