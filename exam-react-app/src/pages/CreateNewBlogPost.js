@@ -1,19 +1,47 @@
 import { useEffect, useState } from 'react';
 import { useHref } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Form, Card } from 'react-bootstrap';
 
-export function CreateNewBlogPost(props) {
+export function CreateNewBlogPost() {
     const [title, setTitle] = useState("");
-    const [text, setText] = useState("");    
+    const [text, setText] = useState("");
+    const [titleError, setTitleError] = useState("Negali būti tuščias!")    
+    const [titles, setTitles] = useState([]);
 
     const listUrl = useHref('/');
+
+    const titleHandler = (e) => {
+        setTitle(e.target.value)
+        if (e.target.value.length < 2 || e.target.value.length > 100) {
+          setTitleError("Įveskite nuo 2 iki 100 simbolių!");
+          document.getElementById('title').style.borderColor = 'red';
+          if (!e.target.value) {            
+            setTitleError("Negali būti tuščias!")
+          }  
+        } else {
+          setTitleError("")
+          document.getElementById('title').style.borderColor = '#c7c5c5';
+        }
+        if (titles.includes(e.target.value)){
+            setTitleError("Straipsnis su šia antrašte jau publikuotas!")
+        }
+      }
+
+      useEffect(() => {
+        fetch('/api/v1/blogposts')
+            .then((response) => response.json())
+            .then((jsonResponse) => {
+           const allTitles = jsonResponse.map(res => res.title)
+        setTitles(allTitles);
+    });
+    }, []);
 
     const clear = () => {
         setTitle("");
         setText("");       
     }
 
-    const applyResult = (result) => {
+    const applyResult = (result) => {        
         if (result.ok) {
             clear();
         } else {
@@ -34,35 +62,39 @@ export function CreateNewBlogPost(props) {
                 })
         }).then(applyResult)
         .then(() => window.location = listUrl);
-    };
+    };    
 
-    useEffect(() => {
-        if (title === "") {
-            document.getElementById('name').style.background = 'red';
-        } else {
-            document.getElementById('name').style.background = 'green';
-        }
-    });
-
-    return (
-        <fieldset id="create">
-            <legend>Sukurti naują įrašą</legend>
-
-            <div>
-                <label htmlFor="title">Įrašo pavadinimas</label>
-                <input id="name" value={title} onChange={(e) => setTitle(e.target.value)}/>
-            </div>
-            <div>
-                <label htmlFor="text">Text</label>               
-                <textarea 
-                    id="text" 
+    return (<div className="d-grid justify-content-md-center">        
+        <Card className="p-2 mt-5 bg-light" style={{ width: "50rem" }} >
+        <fieldset id="create-blogPost">
+          <legend className='text-center'>Sukurti naują įrašą</legend>
+           <Form>
+            <Form.Group className="mb-3">
+            {(titleError) && <div style={{ color: "red" }}>{titleError}</div>}
+              <Form.Label>Įrašo pavadinimas</Form.Label>
+              <Form.Control
+                type="text"
+                id="title"
+                value={title} onChange={(e) => titleHandler(e)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Tekstas</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                id="text" 
                     value={text} 
                     onChange={(e) => setText(e.target.value)} 
-                />
-            </div>
-            <div>
-                <Button onClick={createBlogPost}>Create</Button>
-            </div>
+              />
+            </Form.Group>
+            <Button variant="dark" onClick={createBlogPost}>
+              Paskelbti
+            </Button>
+          </Form>
         </fieldset>
+      </Card>
+        
+        </div>
     )
 }

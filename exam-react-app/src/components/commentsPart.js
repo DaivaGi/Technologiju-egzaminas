@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Button, Form, Card } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
-const JSON_HEADERS = {
-  "Content-Type": "application/json",
-};
 
 export function CommentsPart() {
   const params = useParams();
@@ -51,8 +47,8 @@ const createComment = () => {
 
 
   return (
-    <div>      
-      <Card className="p-2 mt-2" style={{ width: "20rem" }}>
+    <div className="mb-5">      
+      <Card className="p-2 my-4 bg-light" style={{ width: "20rem" }}>
         <fieldset id="create">
           <legend>Naujas Komentaras</legend>
            <Form>
@@ -75,8 +71,8 @@ const createComment = () => {
                 onChange={(e) => setText(e.target.value)}
               />
             </Form.Group>
-            <Button variant="secondary" onClick={createComment}>
-              Create
+            <Button variant="dark" onClick={createComment}>
+              Paskelbti
             </Button>
           </Form>
         </fieldset>

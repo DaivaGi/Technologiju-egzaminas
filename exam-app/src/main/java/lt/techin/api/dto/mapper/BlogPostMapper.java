@@ -21,6 +21,7 @@ public class BlogPostMapper {
         var blogPostDto = new BlogPostEntityDto();
 
         blogPostDto.setId(blogPost.getId());
+        blogPostDto.setTitle(blogPost.getTitle());
         blogPostDto.setText(blogPost.getText());
         blogPostDto.setCreatedDate(blogPost.getCreatedDate());
 
@@ -43,6 +44,7 @@ public class BlogPostMapper {
         var blogPost = new BlogPost();
 
         blogPost.setId(blogPostDto.getId());
+        blogPost.setTitle(blogPostDto.getTitle());
         blogPost.setText(blogPostDto.getText());
         blogPost.setCreatedDate(blogPostDto.getCreatedDate());
 

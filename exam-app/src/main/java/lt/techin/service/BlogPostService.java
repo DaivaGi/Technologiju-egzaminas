@@ -26,7 +26,7 @@ public class BlogPostService {
     }
 
     public List<BlogPost> getAll() {
-        return blogPostRepository.findAll();
+        return blogPostRepository.findAllByOrderByCreatedDateDesc();
     }
 
     public Optional<BlogPost> getById(Long id) {

@@ -7,19 +7,20 @@ import { CreateNewBlogPost } from './pages/CreateNewBlogPost';
 
 function App() {
   return (
-    <div className='container'>
+    <div>
       <HashRouter>
         <Menu />
-
+        <div className='container'>
         <Routes>
         <Route path='/' element={<BlogPostListPage />} />
         <Route path='/blogposts/view/:id' element={<ViewBlogPost />} />
-        <Route path='blogposts/create' element={<CreateNewBlogPost/>} />
+        <Route path='/blogposts/create' element={<CreateNewBlogPost/>} />
           {/* 
           
           
           <Route path='/animals/update/:id' element={<UpdateAnimalPage />} /> */}
         </Routes>
+        </div>
       </HashRouter> 
     </div>
   );

@@ -34,8 +34,6 @@ public class BlogPost {
     @OneToMany(mappedBy="blogPost")
     private List<Comment> comments = new ArrayList<>();
 
-
-
     @PrePersist
     public void prePersist() {
         createdDate = LocalDateTime.now();

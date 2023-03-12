@@ -2,9 +2,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from 'react-bootstrap';
 
-const JSON_HEADERS = {
-  "Content-Type": "application/json",
-};
 
 export function BlogPostListPage() {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -22,16 +19,17 @@ export function BlogPostListPage() {
   return (
     <div>
       
-      <table>
+      <table className="mt-5">
         <tbody>
           {blogPosts.map((blogPost) => (
-            <tr key={blogPost.id}>
-              <td>{blogPost.createdDate}</td>
-              <td>{blogPost.title}</td>
-              <td>{blogPost.text}</td>
+            
+            <tr key={blogPost.id} >
+              <td className="pe-5">{blogPost.createdDate}</td>              
+              <td className="pe-5"><h5>{blogPost.title}</h5></td>
+              {/* <td>{blogPost.text}</td> */}
               <td>
-                <Link to={"blogposts/view/" + blogPost.id}>
-                  <Button variant="outline-secondary">Daugiau...</Button>
+                <Link className="text-decoration-none text-muted" to={"blogposts/view/" + blogPost.id}>
+                  Skaityti...
                 </Link>
               </td>
             </tr>
